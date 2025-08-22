@@ -1,18 +1,15 @@
-// 4-bit Fish Counter
+// 4 bit binary counting problem
 
 // LED pins for binary display
 int ledPins[4] = {2, 3, 4, 5};
 
-// Push button pins
+// this is push buttons
 int increment_button = 6;   // Increment button
 int reset_button = 7;       // Reset button
 
-// Built-in LED (overflow indicator)
+// built in led is pin 13
 int overflowLED = 13;
-
-// Counter variable
 int counter = 0;
-
 // For button debounce (track last states)
 int lastIncState = HIGH;
 int lastResetState = HIGH;
@@ -44,20 +41,20 @@ void loop() {
     counter++;
   }
 
-  // Handle overflow (>15 for 4-bit)
+  // if counter is greater than 15, it is overflowing 
   if (counter > 15) {
-    // Lock into overflow state
+    //counter++;
     counter = 16;  
-    // Turn OFF 4 LEDs
+    // turn off leds
     for (int i = 0; i < 4; i++) {
       digitalWrite(ledPins[i], LOW);
     }
-    // Turn ON built-in overflow LED
+    // turn on the inbuilt led to indicate overflow
     digitalWrite(overflowLED, HIGH);
   } else {
-    // Display binary value on 4 LEDs
+   
     for (int i = 0; i < 4; i++) {
-      int bitVal = (counter >> i) & 1;  // extract i-th bit
+      int bitVal = (counter >> i) & 1;  //takes ith place and turns it ON or OFF accordingly
       digitalWrite(ledPins[i], bitVal);
     }
     // Overflow LED OFF
