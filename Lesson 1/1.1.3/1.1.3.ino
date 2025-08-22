@@ -61,9 +61,9 @@ void loop() {
     digitalWrite(overflowLED, LOW);
   }
 
-  // Save last button states
+
   lastIncState = incState;
   lastResetState = resetState;
 
-  delay(50); // debounce delay
+  delay(50); 
 }
