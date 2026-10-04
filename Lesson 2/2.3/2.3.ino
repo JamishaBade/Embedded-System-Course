@@ -3,6 +3,12 @@ int ledR = 9;
 int ledG = 10;
 int ledB = 11;
 
+bool isHexDigit(char c) {
+  return (c >= '0' && c <= '9') ||
+         (c >= 'A' && c <= 'F') ||
+         (c >= 'a' && c <= 'f');
+}
+
 void setup() {
   Serial.begin(9600);
   pinMode(ledR, OUTPUT);
@@ -23,18 +29,21 @@ void loop() {
       return;
     }
 
+    for (int i = 0; i < 6; i++) {
+      if (!isHexDigit(input[i])) {
+        Serial.println("ERROR: Invalid hex code!");
+        return;
+      }
+    }
+
     // Convert the hex string to a number
     long color = strtol(input.c_str(), NULL, 16);
-    if (color == 0 && !input.equals("000000")) {
-      Serial.println("ERROR: Invalid hex code!");
-      return;
-    }
 
     // Split into red, green, blue
     //this is the main concept 
-    int b = (color >> 16) & 0xFF;
+    int r = (color >> 16) & 0xFF;
     int g = (color >> 8) & 0xFF;
-    int r = color & 0xFF;
+    int b = color & 0xFF;
 
     // Set the LED colors
     analogWrite(ledR, r);

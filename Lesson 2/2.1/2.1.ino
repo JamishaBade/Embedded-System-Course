@@ -18,7 +18,7 @@ void loop() {
   // Determine level with hysteresis
   int newLevel = currentLevel;
   // helps to make the transition smoother
-  if(potValue > thresholds[currentLevel] + hysteresis && currentLevel < 4){
+  if(currentLevel < 4 && potValue > thresholds[currentLevel] + hysteresis){
     newLevel++;
   } 
   else if(currentLevel > 0 && potValue < thresholds[currentLevel-1] - hysteresis){
